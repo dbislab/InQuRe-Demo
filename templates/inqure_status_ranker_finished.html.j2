@@ -1,0 +1,13 @@
+{% set stage = 3 %}
+{% include "inqure_status_common.html.j2" %}
+<br>
+Pruned Rewrites: {{ stats.num_pruned_queries }}
+{% if stats.ranked_queries|length > 0 %}
+    <input type="checkbox" id="expand-ranked-rewrite-list-{{ id }}" class="expander">
+    <label for="expand-ranked-rewrite-list-{{ id }}" class="floater">Ranked Rewrites</label>
+    <ol>
+        {% for rewrite in stats.ranked_queries %}
+            <li><pre>{{ rewrite | sql }}</pre></li>
+        {% endfor %}
+    </ol>
+{% endif %}

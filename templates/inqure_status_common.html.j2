@@ -1,0 +1,21 @@
+Runtime: {{ "%.4f s"|format(stats.runtime) }}<br>
+LLM Prompts: {{ stats.llm_prompts|length }}
+{% if stats.llm_prompts|length > 0 %}
+    <input type="checkbox" id="expand-prompt-list-{{ stage }}-{{ id }}" class="expander">
+    <label for="expand-prompt-list-{{ stage }}-{{ id }}" class="floater">LLM Dialog</label>
+    <ol>
+        {% for prompt, reply in stats.llm_prompts|zip(stats.llm_answers) %}
+            <li>
+                Prompt: <p class="code">{{ prompt }}</p>
+                Reply: <p class="code">{{ reply }}</p>
+            </li>
+        {% endfor %}
+    </ol>
+{% endif %}<br>
+Token Costs: {{ "%.4f $"|format(stats.token_cost) }}
+<input type="checkbox" id="expand-tokens-{{ stage }}-{{ id }}" class="expander">
+<label for="expand-tokens-{{ stage }}-{{ id }}" class="floater">Token Counts</label>
+<div>
+    Input Tokens: {{ stats.input_tokens }}<br>
+    Output Tokens: {{ stats.output_tokens }}
+</div>

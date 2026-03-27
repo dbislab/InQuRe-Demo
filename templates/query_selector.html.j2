@@ -1,0 +1,8 @@
+{% macro query_selector(query_list, id) -%}
+    <select onclick="setQuery(this)" id="{{ id }}" class="selector">
+        {% for query in query_list %}
+            <option value="{{ query.query }}">{{ query.description }}</option>
+        {% endfor %}
+        <option value="custom" selected>Custom Input</option>
+    </select>
+{% endmacro %}

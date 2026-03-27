@@ -1,0 +1,16 @@
+{% macro schema(schema,name) -%}
+    {%- for table, columns in schema %}
+        {% set table_id = loop.index0 %}
+        {% set table_ref = name + '-table-' + table_id|string %}
+        <input type="checkbox" name="{{ table_ref }}" id="{{ table_ref }}" class="deletebutton table-deleter" data-dataset="{{ name }}" data-table-id="{{ table_id }}">
+        <label for="{{ table_ref }}"> {{table}} </label>
+        <span class="columnlist">[
+            {%- for column in columns %}
+                {% set column_ref = name + '-table-' + table_id|string + '-column-' + loop.index0|string %}
+                <input type="checkbox" name="{{ column_ref }}" id="{{ column_ref }}" class="deletebutton column-deleter" data-dataset="{{ name }}" data-table-id="{{ table_id }}" data-column-id="{{ loop.index0 }}">
+                <label for="{{ column_ref }}">{{column}}</label>
+                {%- if not loop.last %}, {% endif %}
+            {%- endfor %}
+        ]</span>{% if not loop.last %}<br>{% endif %}
+    {%- endfor %}
+{% endmacro %}

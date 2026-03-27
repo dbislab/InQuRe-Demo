@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/layout.css">
+    <link rel="stylesheet" href="static/loader.css">
+    <title>Intent-based Query Rewriting</title>
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            {% include 'dbislab.html.j2' %}    
+            {% include 'rptu.html.j2' %}    
+            <h1>Intent-based Query Rewriting</h1>
+        </div>
+        {% include 'setting_selection.html.j2' %}
+        {% include 'rewriter_selection.html.j2' %}
+        {% include 'result_display.html.j2' %}
+        <div>
+            <a href="/" id="reset-button" class="button">Reset</a>
+        </div>
+    </div>
+    <script src="/static/socket.io.js"></script>
+    <script src="/static/rewrite.js"></script>
+</body>
+</html>

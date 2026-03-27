@@ -1,0 +1,107 @@
+{
+    "databases": {
+        "imdb": {
+            "path": "/path/to/imdb_full_without_old_tables.db",
+            "has_prefixes": false,
+            "description": "IMDb consist of data describing movies and actors. It includes detailed information on both movies and actors, e.g., alternate movie titles, movie keywords, and actor ages. It also connects movies and actors via detailing the cast of each movie and the respective actor's role. Here, the cast of the movie also includes directors, music composers, and other crew members. The dataset also describes connections between movies, e.g., one movie being a remake of another. Moreover, it lists information on movie production companies.",
+            "queries": {
+                "missing-data": [
+                    {
+                        "description": "Highest Ranked Movies",
+                        "query": "SELECT title, CAST(info AS FLOAT) AS rank FROM movie_title m JOIN movie_info_top_250_rank r ON m.id = r.movie_id ORDER BY rank"
+                    },
+                    {
+                        "description": "Horror Movies by Year",
+                        "query": "SELECT title, info, production_year FROM movie_title m JOIN movie_info_genres g ON m.id = g.movie_id WHERE g.info = 'Horror' ORDER BY production_year LIMIT 20"
+                    }
+                ],
+                "vast-collections": [
+                    {
+                        "description": "Highest Ranked Movies",
+                        "query": "SELECT title, CAST(info AS FLOAT) AS rank FROM movie_title m JOIN movie_info_top_250_rank r ON m.id = r.movie_id ORDER BY rank"
+                    },
+                    {
+                        "description": "Horror Movies by Year",
+                        "query": "SELECT title, info, production_year FROM movie_title m JOIN movie_info_genres g ON m.id = g.movie_id WHERE g.info = 'Horror' ORDER BY production_year LIMIT 20"
+                    }
+                ]
+            }
+        },
+        "spider": {
+            "path": "/path/to/spider_with_prefixes.db",
+            "has_prefixes": true,
+            "description": "Spider is a dataset combining 200 databases on 138 topics. Each database consists of multiple tables that contain information on its topic. The topics of the databases are diverse and range from university student information to customer order history. Example databases: <ul><li>Data on baseball games</li><li>Data on student behaviour and grades</li><li>Data on hospital staff and patients</li></ul>",
+            "queries": {
+                "missing-data": [
+                    {
+                        "description": "Baseball Teams by Success",
+                        "query": "SELECT team FROM baseball ORDER BY success DESC"
+                    },
+                    {
+                        "description": "Doctors by Impact",
+                        "query": "SELECT d.name FROM hospital h JOIN doctors d ON h.id = d.hospital ORDER BY d.impact"
+                    },
+                    {
+                        "description": "Average Student Age by Major",
+                        "query": "SELECT AVG(student_age) FROM university_student GROUP BY major"
+                    }
+                ],
+                "vast-collections": [
+                    {
+                        "description": "Baseball Teams by Success",
+                        "query": "SELECT team FROM baseball ORDER BY success DESC"
+                    },
+                    {
+                        "description": "Doctors by Impact",
+                        "query": "SELECT d.name FROM hospital h JOIN doctors d ON h.id = d.hospital ORDER BY d.impact"
+                    },
+                    {
+                        "description": "Average Student Age by Major",
+                        "query": "SELECT AVG(student_age) FROM university_student GROUP BY major"
+                    }
+                ]
+            }
+        }
+    },
+    "rewriter_defaults": {
+        "supported_models": [
+            {
+                "name": "GPT-4o",
+                "key": "gpt-4o",
+                "input_token_cost": 2.50,
+                "output_token_cost": 10.00
+            },
+            {
+                "name": "GPT-4o mini",
+                "key": "gpt-4o-mini",
+                "input_token_cost": 0.15,
+                "output_token_cost": 0.60
+            },
+            {
+                "name": "o1 Preview",
+                "key": "o1-preview",
+                "input_token_cost": 15.00,
+                "output_token_cost": 60.00
+            },
+            {
+                "name": "o1-mini",
+                "key": "o1-mini",
+                "input_token_cost": 1.10,
+                "output_token_cost": 4.40
+            }
+        ],
+        "default_model_key": "gpt-4o",
+        "alternative_query_count": 5,
+        "additional_query_count": 2,
+        "embedding_threshold": 0.4,
+        "sllm_expected_selectivity": 0.1,
+        "cllm_threshold": 0.7,
+        "mmr_lambda": 0.7,
+        "lmms_package_size": 10,
+        "correction_tries": 3
+    },
+    "rewriter_path": "/path/to/InQuRe",
+    "temp_dir": "/path/to/tmp",
+    "rewrite_preview_count": 2,
+    "query_preview_rows": 5
+}

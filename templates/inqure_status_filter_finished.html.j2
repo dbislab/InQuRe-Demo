@@ -1,0 +1,13 @@
+{% set stage = 1 %}
+{% include "inqure_status_common.html.j2" %}
+<br>
+Selected Tables: {{ stats.num_selected_tables }}
+{% if stats.num_selected_tables > 0 %}
+    <input type="checkbox" id="expand-table-list-{{ id }}" class="expander">
+    <label for="expand-table-list-{{ id }}" class="floater">Tables</label>
+    <ul>
+        {% for table in stats.selected_tables %}
+            <li>{{ table }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}

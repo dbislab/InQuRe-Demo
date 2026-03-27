@@ -1,0 +1,27 @@
+{% set stage = 4 %}
+{% include "inqure_status_common.html.j2" %}
+<br>
+Initially Invalid Queries: {{ stats.num_queries_needing_correction }}<br>
+Non-correctable Queries: {{ stats.num_non_correctable_queries }}<br>
+<br>
+<input type="checkbox" id="expand-final-list-{{ id }}" class="expander">
+<label for="expand-final-list-{{ id }}">Show Final Ranked Rewrites</label>
+<ol>
+    {% set working = namespace(counter=0) %}
+    {% for error, rewrite in stats.error_messages|zip(stats.final_rewrites) %}
+        <li>
+            {% if error|length > 0 %}
+                Error: <p class="code">{{ error }}</p>
+            {% else %}
+                <span class="query">
+                    <span class="dataset-dependent" data-dataset="imdb">
+                        <input type="checkbox" data-rewrite-id="{{ id }}" data-query-id="{{ loop.index0 }}" onclick="toggleQueryVisibility({{ id }}, {{ loop.index0 }})" {% if working.counter < preview_count %}checked{% endif %}>
+                    </span>
+                    <pre>{{ rewrite | sql }}</pre>
+                </span>
+                {% set working.counter = working.counter + 1 %}
+            {% endif %}
+        </li>
+    {% endfor %}
+</ol>
+<br>

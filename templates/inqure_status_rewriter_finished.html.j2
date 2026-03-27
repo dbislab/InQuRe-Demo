@@ -1,0 +1,13 @@
+{% set stage = 2 %}
+{% include "inqure_status_common.html.j2" %}
+<br>
+Produced Rewrites: {{ stats.num_produced_rewrites }}
+{% if stats.num_produced_rewrites > 0 %}
+    <input type="checkbox" id="expand-rewrite-list-{{ id }}" class="expander">
+    <label for="expand-rewrite-list-{{ id }}" class="floater">Rewrites</label>
+    <ul>
+        {% for rewrite in stats.current_rewrites %}
+            <li><pre>{{ rewrite | sql }}</pre></li>
+        {% endfor %}
+    </ul>
+{% endif %}

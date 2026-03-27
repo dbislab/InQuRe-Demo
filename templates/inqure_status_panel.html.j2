@@ -1,0 +1,26 @@
+<div id="rewriter" class="row status-panel">
+    <div class="box">
+        <h2>Table Filter</h2>
+        <div class="content" id="table-filter-status-{{ id }}">
+            {% include 'inqure_status_loading.html.j2' %}
+        </div>
+    </div>
+    <div class="box">
+        <h2>Rewriter</h2>
+        <div class="content" id="rewriter-status-{{ id }}">
+            {% include 'inqure_status_loading.html.j2' %}
+        </div>
+    </div>
+    <div class="box">
+        <h2>Ranker</h2>
+        <div class="content" id="ranker-status-{{ id }}">
+            {% include 'inqure_status_loading.html.j2' %}
+        </div>
+    </div>
+    <div class="box">
+        <h2>Query Corrector</h2>
+        <div class="content" id="query-corrector-status-{{ id }}">
+            {% include 'inqure_status_loading.html.j2' %}
+        </div>
+    </div>
+</div>

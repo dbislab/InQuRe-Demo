@@ -1,0 +1,70 @@
+{% from 'schema.html.j2' import schema -%}
+{% from 'query_selector.html.j2' import query_selector -%}
+
+<input type="checkbox" name="setting-selection-complete" id="setting-selection-complete">
+<div class="row">
+    <div id="scenario" class="box fixed">
+        <h2>Scenario</h2>
+        <form class="content">
+            Pick a scenario:<br>
+            <input type="radio" name="scenario-select" value="missing-data" id="scenario-missing-data" checked>
+            <label for="scenario-missing-data">Missing Data</label>
+            <input type="radio" name="scenario-select" value="vast-collections" id="scenario-vast-collections">
+            <label for="scenario-vast-collections">Vast Collections</label>
+            <br>
+            <br>
+
+            Pick a dataset:<br>
+            <input type="radio" name="dataset-select" value="imdb" id="dataset-imdb" checked>
+            <label for="dataset-imdb">IMDB</label>
+            <input type="radio" name="dataset-select" value="spider" id="dataset-spider">
+            <label for="dataset-spider">Spider</label>
+        </form>
+    </div>
+    <div id="dataset"  class="box">
+        <h2>Dataset Collection Infos</h2>
+        <div class="content">
+            <div class="dataset-dependent" data-dataset="imdb">
+                <div class="scenario-dependent" data-scenario="missing-data">
+                    {{schema(imdb['schema'], 'imdb')}}
+                </div>
+                <div class="scenario-dependent" data-scenario="vast-collections">
+                    {{imdb['description']}}
+                </div>
+            </div>
+            <div class="dataset-dependent" data-dataset="spider">
+                <div class="scenario-dependent" data-scenario="missing-data">
+                    {{schema(spider['schema'], 'spider')}}
+                </div>
+                <div class="scenario-dependent" data-scenario="vast-collections">
+                    {{spider['description']}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="query" class="box">
+    <h2>Query to Rewrite</h2>
+    <form class="content">
+        <div class="row">
+            <div class="dataset-dependent" data-dataset="imdb">
+                <div class="scenario-dependent" data-scenario="missing-data">
+                    {{ query_selector(imdb['queries']['missing-data'], 'query-imdb-missing-data') }}
+                </div>
+                <div class="scenario-dependent" data-scenario="vast-collections">
+                    {{ query_selector(imdb['queries']['vast-collections'], 'query-imdb-vast-collections') }}
+                </div>
+            </div>
+            <div class="dataset-dependent" data-dataset="spider">
+                <div class="scenario-dependent" data-scenario="missing-data">
+                    {{ query_selector(spider['queries']['missing-data'], 'query-spider-missing-data') }}
+                </div>
+                <div class="scenario-dependent" data-scenario="vast-collections">
+                    {{ query_selector(spider['queries']['vast-collections'], 'query-spider-vast-collections') }}
+                </div>
+            </div>
+            <label for="setting-selection-complete" id="rewrite-button" class="button fixed" onclick="notify_original_query_selected()">Next &rarr;</label>
+        </div>
+        <input type="text" id="query-input" name="query" placeholder="Enter your query here..." class="code">
+    </form>
+</div>
