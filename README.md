@@ -40,12 +40,12 @@ If there are no tables in the database, an error will be thrown, as no executabl
 - Edit the database path to lead to the .db file of the database.
 - The rewriter path must be set to the folder of InQuRe which can be downloaded here: https://github.com/dbislab/InQuRe (make sure to use the demo branch)
 - temp_dir must be set to a folder that exists in your file system. It must be part of the same filesystem your database files reside on, setting it to tmpfs will not suffice.
-- Other things like default queries etc. can also be added/changed in the config file
+- Other things like default queries etc. can also be added/changed in the config file.
 
 
 ## Running the program
 
-To run the UI run `flash run` from withn your python virtualenv
+To run the UI run `flash run` from within your python virtualenv.
 
 
 
